@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState, MouseEvent } from "react";
+import { useRef, useState, MouseEvent, useEffect, useCallback } from "react";
 
 /* ─── Data Types ─── */
 interface MenuItem {
@@ -364,14 +364,110 @@ function SubCategoryGroup({ sub, index }: { sub: SubCategory; index: number }) {
     );
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   useCupScreenPosition — Projects the 3D cup's world position
+   to 2D viewport-percentage coordinates every frame.
+═══════════════════════════════════════════════════════════════ */
+function useCupScreenPosition() {
+    const [pos, setPos] = useState({ x: 50, y: 50, r: 18 });
+    const rafId = useRef(0);
+
+    const lerp = useCallback(
+        (p: number, inR: number[], outR: number[]) => {
+            const clamped = Math.max(inR[0], Math.min(p, inR[inR.length - 1]));
+            for (let i = 0; i < inR.length - 1; i++) {
+                if (clamped >= inR[i] && clamped <= inR[i + 1]) {
+                    const t = (clamped - inR[i]) / (inR[i + 1] - inR[i]);
+                    return outR[i] + (outR[i + 1] - outR[i]) * t;
+                }
+            }
+            return outR[outR.length - 1];
+        },
+        []
+    );
+
+    useEffect(() => {
+        const tick = () => {
+            const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+            const wx = lerp(progress, [0, 1], [-4, 4]);
+            const wy = lerp(progress, [0, 1], [3, -3]);
+            const wz = lerp(progress, [0, 0.4, 0.7, 1], [0, 1.5, 0.5, -1]);
+
+            const camZ = 8;
+            const half = Math.tan((45 * Math.PI) / 360);
+            const d = camZ - wz;
+            if (d <= 0.1) { rafId.current = requestAnimationFrame(tick); return; }
+
+            const aspect = window.innerWidth / window.innerHeight;
+            const sx = ((wx / (half * aspect * d)) + 1) * 50;
+            const sy = ((1 - wy / (half * d))) * 50;
+            const rr = (1.8 / (half * d)) * 50;
+
+            setPos({ x: sx, y: sy, r: Math.max(rr, 10) });
+            rafId.current = requestAnimationFrame(tick);
+        };
+        rafId.current = requestAnimationFrame(tick);
+        return () => cancelAnimationFrame(rafId.current);
+    }, [lerp]);
+
+    return pos;
+}
+
 /* ─── Main Menu Component ─── */
 export function Menu() {
     const [activeTab, setActiveTab] = useState("beverages");
     const activeTabData = menuTabs.find((t) => t.id === activeTab)!;
 
+    // Overlay tracking for the Gold Text Effect
+    const goldRef = useRef<HTMLHeadingElement>(null);
+    const cup = useCupScreenPosition();
+
+    /* ═══ RAF-driven mask-image sync ═══ */
+    useEffect(() => {
+        const el = goldRef.current;
+        if (!el) return;
+        let raf: number;
+        const sync = () => {
+            const rect = el.getBoundingClientRect();
+            if (rect.width > 0 && rect.height > 0) {
+                const cx = (cup.x / 100) * window.innerWidth - rect.left;
+                const cy = (cup.y / 100) * window.innerHeight - rect.top;
+                const rpx = (cup.r / 100) * window.innerHeight;
+
+                // 🎛️ SHAPE 1: The Main Cup Body (Unchanged, looks perfect)
+                const bodyWidth = rpx * 0.58;
+                const bodyHeight = rpx * 1.15;
+                const bodyX = cx + (rpx * 0.15);
+
+                // 🎛️ SHAPE 2: The Handle (Wider, pushed far left, nudged slightly up)
+                const handleWidth = rpx * 0.45;
+                const handleHeight = rpx * 0.55;
+                const handleX = cx - (rpx * 0.55);
+                const handleY = cy - (rpx * 0.05);
+
+                // 🍩 THE DONUT FIX: 
+                // Notice the second gradient now goes: transparent -> black -> transparent.
+                // This hollows out the middle so text inside the handle loop stays white!
+                const maskCSS = `
+                    radial-gradient(${bodyWidth}px ${bodyHeight}px at ${bodyX}px ${cy}px, black 99.8%, transparent 100%),
+                    radial-gradient(${handleWidth}px ${handleHeight}px at ${handleX}px ${handleY}px, transparent 45%, black 46%, black 99.8%, transparent 100%)
+                `;
+
+                el.style.webkitMaskImage = maskCSS;
+                el.style.maskImage = maskCSS;
+
+                el.style.clipPath = "none";
+            }
+            raf = requestAnimationFrame(sync);
+        };
+        raf = requestAnimationFrame(sync);
+        return () => cancelAnimationFrame(raf);
+    }, [cup]);
+
     return (
         <section id="menu" className="py-24 md:py-36 px-6 relative">
-            {/* 🚨 FIX: Removed solid background so the page wrapper's layer strategy works */}
             <div className="absolute inset-0 bg-transparent pointer-events-none" />
             <div className="absolute inset-0 noise-overlay opacity-30 pointer-events-none" />
 
@@ -389,57 +485,48 @@ export function Menu() {
                         The Menu
                         <span className="w-6 h-px bg-forest/40 dark:bg-sage/40" />
                     </span>
-                    {/* ═══ Dynamic Intersection Text Color ═══
-                         Two-layer technique using mix-blend-mode: darken
-                         
-                         Layer 1 (base): White/parchment text — visible on dark bg
-                         Layer 2 (overlay): Gold text with darken blend —
-                           • On dark bg: darken(gold, dark) → dark wins → gold invisible
-                           • On white cup: darken(gold, white) → gold wins → gold shows
-                         
-                         Result: text is white everywhere EXCEPT where it overlaps
-                         the white 3D cup, where it seamlessly turns gold.
-                    ═══════════════════════════════════════════════ */}
-                    <div className="relative mt-6">
-                        {/* Layer 1: Base text — white/parchment, always visible on dark */}
-                        <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-6xl lg:text-7xl font-bold text-espresso dark:text-parchment leading-[1.05]">
+
+                    {/* ═══ Dual-Layer Text Intersection ═══ */}
+                    <div className="relative mt-6" style={{ isolation: "isolate" }}>
+                        {/* Layer 1 — Base WHITE text */}
+                        <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] w-full text-center">
                             100% Vegetarian.
                             <br />
-                            <span className="italic font-normal text-forest dark:text-gold">
+                            <span className="italic font-normal text-gold">
                                 100% Indulgent.
                             </span>
                         </h2>
 
-                        {/* Layer 2: Gold overlay — mix-blend-mode: darken
-                             Only the "100% Vegetarian." line needs the effect,
-                             since "100% Indulgent." is already gold. */}
+                        {/* Layer 2 — GOLD overlay clipped to the cup */}
                         <h2
+                            ref={goldRef}
                             aria-hidden="true"
-                            className="font-[family-name:var(--font-display)] text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] absolute inset-0 pointer-events-none select-none"
+                            className="font-[family-name:var(--font-display)] text-4xl md:text-6xl lg:text-7xl font-bold leading-[1.05] absolute inset-0 w-full text-center pointer-events-none select-none"
                             style={{
                                 color: "#C9A96E",
-                                mixBlendMode: "darken",
+                                clipPath: "ellipse(0px 0px at 50% 50%)",
+                                willChange: "clip-path",
                             }}
                         >
                             100% Vegetarian.
                             <br />
-                            {/* This line is transparent so it doesn't interfere
-                                 with the already-gold "100% Indulgent." below */}
                             <span className="italic font-normal" style={{ color: "transparent" }}>
                                 100% Indulgent.
                             </span>
                         </h2>
                     </div>
+
                     <p className="text-bark/70 dark:text-parchment-60 mt-6 text-lg max-w-xl mx-auto leading-relaxed">
                         Every dish and drink crafted with fresh, locally sourced ingredients. No compromises.
                     </p>
 
-                    {/* Veg badge */}
                     <div className="mt-6 inline-flex items-center gap-2 bg-forest/10 dark:bg-forest/20 text-forest dark:text-sage text-sm font-medium px-5 py-2.5 rounded-full border border-forest/20 dark:border-sage/20 backdrop-blur-none">
                         <span>🌿</span>
                         <span>100% Vegetarian Promise</span>
                     </div>
                 </motion.div>
+
+                {/* ... (The rest of your Tab Navigation and Tab Content stays exactly the same) ... */}
 
                 {/* ─── Tab Navigation ─── */}
                 <motion.div
@@ -454,7 +541,6 @@ export function Menu() {
                             <button
                                 key={tab.id}
                                 onClick={() => setActiveTab(tab.id)}
-                                /* 🚨 FIX: Replaced solid tab background with translucent */
                                 className={`menu-tab px-5 py-3 md:px-6 md:py-3.5 rounded-full text-sm md:text-[15px] font-medium flex items-center gap-2 border ${activeTab === tab.id
                                     ? "menu-tab-active border-gold/50 bg-white/10 dark:bg-zinc-800/60"
                                     : "border-bark/15 dark:border-parchment-10 text-bark dark:text-parchment-60 hover:text-espresso dark:hover:text-parchment bg-white/5 dark:bg-zinc-950/40"
@@ -475,10 +561,8 @@ export function Menu() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.35, ease: "easeOut" }}
-                        /* 🚨 FIX: Killed backdrop-blur-sm, changed solid background to dark translucent */
                         className="bg-white/5 dark:bg-zinc-950/60 rounded-3xl p-6 md:p-10 border border-bark/10 dark:border-parchment-05"
                     >
-                        {/* Tab title */}
                         <div className="flex items-center gap-3 mb-8 pb-5 border-b border-bark/10 dark:border-parchment-10">
                             <span className="text-2xl">{activeTabData.icon}</span>
                             <h3 className="font-[family-name:var(--font-display)] text-2xl md:text-3xl font-bold text-espresso dark:text-parchment">
@@ -489,7 +573,6 @@ export function Menu() {
                             </div>
                         </div>
 
-                        {/* Subcategory groups */}
                         {activeTabData.subcategories.map((sub, idx) => (
                             <SubCategoryGroup
                                 key={`${activeTab}-${sub.name}`}
