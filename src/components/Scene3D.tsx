@@ -47,14 +47,16 @@ export function Scene3D() {
                 <CoffeeCup3D />
                 <CoffeeParticles3D />
 
-                {/* 🚀 FIX 4: Drastically reduced the computational cost of the ground shadow */}
+                {/* 🚀 FIX 1: frames={1} "bakes" the shadow on load. 
+                     It goes from calculating 60 times a second, down to 1 time EVER. */}
                 <ContactShadows
                     position={[0, -4.5, 0]}
                     opacity={0.4}
                     scale={20}
                     blur={2}
                     far={10}
-                    resolution={256}
+                    resolution={128}
+                    frames={1}
                 />
 
                 <Environment preset="apartment" />

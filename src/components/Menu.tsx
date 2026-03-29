@@ -424,32 +424,34 @@ export function Menu() {
     const goldRef = useRef<HTMLHeadingElement>(null);
     const cup = useCupScreenPosition();
 
-    /* ═══ RAF-driven mask-image sync ═══ */
+    /* ═══ RAF-driven mask-image sync (CACHED FOR MOBILE) ═══ */
     useEffect(() => {
         const el = goldRef.current;
         if (!el) return;
+
+        // 🚀 FIX 2: Calculate the size ONCE, and cache it.
+        let rect = el.getBoundingClientRect();
+
+        // Only recalculate if they rotate their phone or resize the browser
+        const handleResize = () => { rect = el.getBoundingClientRect(); };
+        window.addEventListener("resize", handleResize);
+
         let raf: number;
         const sync = () => {
-            const rect = el.getBoundingClientRect();
             if (rect.width > 0 && rect.height > 0) {
                 const cx = (cup.x / 100) * window.innerWidth - rect.left;
                 const cy = (cup.y / 100) * window.innerHeight - rect.top;
                 const rpx = (cup.r / 100) * window.innerHeight;
 
-                // 🎛️ SHAPE 1: The Main Cup Body (Unchanged, looks perfect)
                 const bodyWidth = rpx * 0.58;
                 const bodyHeight = rpx * 1.15;
                 const bodyX = cx + (rpx * 0.15);
 
-                // 🎛️ SHAPE 2: The Handle (Wider, pushed far left, nudged slightly up)
                 const handleWidth = rpx * 0.45;
                 const handleHeight = rpx * 0.55;
                 const handleX = cx - (rpx * 0.55);
                 const handleY = cy - (rpx * 0.05);
 
-                // 🍩 THE DONUT FIX: 
-                // Notice the second gradient now goes: transparent -> black -> transparent.
-                // This hollows out the middle so text inside the handle loop stays white!
                 const maskCSS = `
                     radial-gradient(${bodyWidth}px ${bodyHeight}px at ${bodyX}px ${cy}px, black 99.8%, transparent 100%),
                     radial-gradient(${handleWidth}px ${handleHeight}px at ${handleX}px ${handleY}px, transparent 45%, black 46%, black 99.8%, transparent 100%)
@@ -457,13 +459,16 @@ export function Menu() {
 
                 el.style.webkitMaskImage = maskCSS;
                 el.style.maskImage = maskCSS;
-
                 el.style.clipPath = "none";
             }
             raf = requestAnimationFrame(sync);
         };
         raf = requestAnimationFrame(sync);
-        return () => cancelAnimationFrame(raf);
+
+        return () => {
+            cancelAnimationFrame(raf);
+            window.removeEventListener("resize", handleResize);
+        };
     }, [cup]);
 
     return (
