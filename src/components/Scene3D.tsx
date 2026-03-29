@@ -8,8 +8,14 @@ import { useState, useEffect } from "react";
 
 export function Scene3D() {
     const [showCup, setShowCup] = useState(false);
+    const [isMobile, setIsMobile] = useState(false); // 📱 ADDED: Mobile state
 
     useEffect(() => {
+        // Check screen size
+        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        handleResize(); // Check immediately on load
+        window.addEventListener("resize", handleResize);
+
         const handleScroll = () => {
             if (window.scrollY > window.innerHeight * 1.0) {
                 setShowCup(true);
@@ -20,7 +26,11 @@ export function Scene3D() {
 
         window.addEventListener("scroll", handleScroll, { passive: true });
         handleScroll();
-        return () => window.removeEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+            window.removeEventListener("resize", handleResize);
+        };
     }, []);
 
     return (
@@ -32,32 +42,20 @@ export function Scene3D() {
             <Canvas
                 shadows
                 camera={{ position: [0, 0, 8], fov: 45 }}
-                // 🚀 FIX 1: The Silver Bullet. Caps resolution on mobile so the GPU doesn't melt.
                 dpr={[1, 1.5]}
-                // 🚀 FIX 2: Asks the browser to dedicate GPU power, and disables expensive antialiasing on high-res screens.
                 gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }}
                 eventSource={typeof window !== "undefined" ? document.body : undefined}
             >
                 <ambientLight intensity={0.4} />
-
-                {/* 🚀 FIX 3: Reduced shadow map size from 1024 to 512. Looks the same, runs twice as fast. */}
-                <directionalLight position={[3, 5, 5]} intensity={1.4} color="#fdf6e3" castShadow shadow-mapSize={[512, 512]} />
+                <directionalLight position={[3, 5, 5]} intensity={1.4} color="#fdf6e3" castShadow shadow-mapSize={[128, 128]} />
                 <directionalLight position={[-5, -2, -5]} intensity={0.5} color="#C9A96E" />
 
-                <CoffeeCup3D />
-                <CoffeeParticles3D />
-
-                {/* 🚀 FIX 1: frames={1} "bakes" the shadow on load. 
-                     It goes from calculating 60 times a second, down to 1 time EVER. */}
-                <ContactShadows
-                    position={[0, -4.5, 0]}
-                    opacity={0.4}
-                    scale={20}
-                    blur={2}
-                    far={10}
-                    resolution={128}
-                    frames={1}
-                />
+                {/* 📱 ADDED: Wrapper group that scales down to 65% size on mobile! */}
+                <group scale={isMobile ? 0.65 : 1}>
+                    <CoffeeCup3D />
+                    <CoffeeParticles3D />
+                    <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={2} far={10} resolution={128} frames={1} />
+                </group>
 
                 <Environment preset="apartment" />
             </Canvas>
