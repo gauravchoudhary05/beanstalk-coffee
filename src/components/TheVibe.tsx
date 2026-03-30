@@ -39,10 +39,16 @@ function useCupScreenPosition() {
             const d = camZ - wz;
             if (d <= 0.1) { rafId.current = requestAnimationFrame(tick); return; }
 
+            // 📱 AGGRESSIVE SHRINK: Must match the exact number from Scene3D!
+            const isMobile = window.innerWidth < 768;
+            const cupScale = isMobile ? 0.45 : 1;
+
             const aspect = window.innerWidth / window.innerHeight;
             const sx = ((wx / (half * aspect * d)) + 1) * 50;
             const sy = ((1 - wy / (half * d))) * 50;
-            const rr = (1.8 / (half * d)) * 50;
+
+            // This applies the 0.45 scale to the entire masking system perfectly
+            const rr = ((1.8 * cupScale) / (half * d)) * 50;
 
             setPos({ x: sx, y: sy, r: Math.max(rr, 10) });
             rafId.current = requestAnimationFrame(tick);
@@ -112,36 +118,37 @@ export function TheVibe() {
     const textY = useTransform(scrollYProgress, [0, 1], ["0%", "5%"]);
     const decorativeY = useTransform(scrollYProgress, [0, 1], ["20%", "-20%"]);
 
-    /* ═══ RAF-driven clip-path sync ═══ */
+    /* ═══ RAF-driven clip-path sync (GPU-ACCELERATED) ═══ */
     useEffect(() => {
         const el = goldRef.current;
         if (!el) return;
+
+        // 🚀 FIX A: Cache layout — calculate ONCE, update only on resize
+        let rect = el.getBoundingClientRect();
+        const handleResize = () => { rect = el.getBoundingClientRect(); };
+        window.addEventListener("resize", handleResize);
+
         let raf: number;
         const sync = () => {
-            const rect = el.getBoundingClientRect();
             if (rect.width > 0 && rect.height > 0) {
                 const cx = (cup.x / 100) * window.innerWidth - rect.left;
                 const cy = (cup.y / 100) * window.innerHeight - rect.top;
                 const rpx = (cup.r / 100) * window.innerHeight;
 
-                // 🎛️ THE PRECISION DIALS 🎛️
-
-                // 1. Widen it to catch the 'e' and the 'T'
-                const maskWidth = rpx * 0.65;
-
-                // 2. Keep the height covering top-to-bottom
+                // 🚀 FIX C: Single GPU-accelerated clip-path replaces CPU mask-image
+                const maskWidth = rpx * 0.70;
                 const maskHeight = rpx * 1.15;
 
-                // 3. Pull it back to the LEFT (Lowering this number moves it left)
-                const shiftRight = rpx * 0.15;
-
-                el.style.clipPath =
-                    `ellipse(${maskWidth}px ${maskHeight}px at ${cx + shiftRight}px ${cy}px)`;
+                el.style.clipPath = `ellipse(${maskWidth}px ${maskHeight}px at ${cx}px ${cy}px)`;
             }
             raf = requestAnimationFrame(sync);
         };
         raf = requestAnimationFrame(sync);
-        return () => cancelAnimationFrame(raf);
+
+        return () => {
+            cancelAnimationFrame(raf);
+            window.removeEventListener("resize", handleResize);
+        };
     }, [cup]);
 
     return (

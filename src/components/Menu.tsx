@@ -424,15 +424,13 @@ export function Menu() {
     const goldRef = useRef<HTMLHeadingElement>(null);
     const cup = useCupScreenPosition();
 
-    /* ═══ RAF-driven mask-image sync (CACHED FOR MOBILE) ═══ */
+    /* ═══ RAF-driven clip-path sync (GPU-ACCELERATED) ═══ */
     useEffect(() => {
         const el = goldRef.current;
         if (!el) return;
 
-        // 🚀 FIX 2: Calculate the size ONCE, and cache it.
+        // 🚀 FIX A: Cache layout — calculate ONCE, update only on resize
         let rect = el.getBoundingClientRect();
-
-        // Only recalculate if they rotate their phone or resize the browser
         const handleResize = () => { rect = el.getBoundingClientRect(); };
         window.addEventListener("resize", handleResize);
 
@@ -443,23 +441,11 @@ export function Menu() {
                 const cy = (cup.y / 100) * window.innerHeight - rect.top;
                 const rpx = (cup.r / 100) * window.innerHeight;
 
-                const bodyWidth = rpx * 0.58;
-                const bodyHeight = rpx * 1.15;
-                const bodyX = cx + (rpx * 0.15);
+                // 🚀 FIX C: Single GPU-accelerated clip-path replaces CPU mask-image
+                const maskWidth = rpx * 0.70;
+                const maskHeight = rpx * 1.15;
 
-                const handleWidth = rpx * 0.45;
-                const handleHeight = rpx * 0.55;
-                const handleX = cx - (rpx * 0.55);
-                const handleY = cy - (rpx * 0.05);
-
-                const maskCSS = `
-                    radial-gradient(${bodyWidth}px ${bodyHeight}px at ${bodyX}px ${cy}px, black 99.8%, transparent 100%),
-                    radial-gradient(${handleWidth}px ${handleHeight}px at ${handleX}px ${handleY}px, transparent 45%, black 46%, black 99.8%, transparent 100%)
-                `;
-
-                el.style.webkitMaskImage = maskCSS;
-                el.style.maskImage = maskCSS;
-                el.style.clipPath = "none";
+                el.style.clipPath = `ellipse(${maskWidth}px ${maskHeight}px at ${cx}px ${cy}px)`;
             }
             raf = requestAnimationFrame(sync);
         };
