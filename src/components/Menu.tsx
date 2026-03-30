@@ -1,12 +1,14 @@
 "use client";
 
-import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from "framer-motion";
-import { useRef, useState, MouseEvent, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState, useEffect, useCallback } from "react";
 
 /* ─── Data Types ─── */
 interface MenuItem {
     name: string;
     price: number;
+    description?: string;
+    isPopular?: boolean;
 }
 
 interface SubCategory {
@@ -247,91 +249,32 @@ const menuTabs: MenuTab[] = [
     },
 ];
 
-/* ─── Steam Lines (reused) ─── */
-function SteamLines() {
+/* ─── Single Menu Item Row (Editorial Style) ─── */
+function MenuItemRow({ item }: { item: MenuItem }) {
     return (
-        <div className="absolute -top-5 left-1/2 -translate-x-1/2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            {[0, 1, 2].map((i) => (
-                <div
-                    key={i}
-                    className="steam-line w-0.5 h-5 rounded-full"
-                    style={{
-                        background: "linear-gradient(to top, rgba(201,169,110,0.7), transparent)",
-                        animationDelay: `${i * 0.4}s`,
-                    }}
-                />
-            ))}
-        </div>
-    );
-}
-
-/* ─── Single Menu Item Card with 3D Tilt ─── */
-function MenuItemCard({ item }: { item: MenuItem }) {
-    const cardRef = useRef<HTMLDivElement>(null);
-    const rotateX = useMotionValue(0);
-    const rotateY = useMotionValue(0);
-    const springConfig = { stiffness: 200, damping: 20 };
-    const springRotateX = useSpring(rotateX, springConfig);
-    const springRotateY = useSpring(rotateY, springConfig);
-    const glare = useTransform(rotateY, [-8, 8], [0.03, 0.12]);
-
-    const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const dx = e.clientX - rect.left - cx;
-        const dy = e.clientY - rect.top - cy;
-        rotateX.set((-dy / cy) * 8);
-        rotateY.set((dx / cx) * 8);
-    };
-
-    const handleMouseLeave = () => {
-        rotateX.set(0);
-        rotateY.set(0);
-    };
-
-    return (
-        <motion.div
-            ref={cardRef}
-            className="group relative cursor-default"
-            style={{
-                rotateX: springRotateX,
-                rotateY: springRotateY,
-                transformStyle: "preserve-3d",
-                perspective: "800px",
-            }}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            whileHover={{ scale: 1.02 }}
-            transition={{ scale: { duration: 0.2 } }}
+        <motion.div 
+            whileTap={{ scale: 0.97, opacity: 0.7 }}
+            className="group py-4 md:py-5 flex flex-col gap-1 cursor-pointer select-none"
         >
-            {/* 🚨 FIX: Replaced solid bg-cream/zinc-deep with translucent white/zinc */}
-            <div
-                className="relative bg-white/5 dark:bg-zinc-950/50 rounded-xl p-4 border border-bark/10 dark:border-parchment-10 hover:border-gold/30 transition-all duration-300"
-                style={{ transformStyle: "preserve-3d" }}
-            >
-                {/* Glare overlay */}
-                <motion.div
-                    className="absolute inset-0 rounded-xl pointer-events-none"
-                    style={{
-                        background: "linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 60%)",
-                        opacity: glare,
-                    }}
-                />
-
-                {/* Steam on hover */}
-                <SteamLines />
-
-                <div className="flex justify-between items-center gap-3">
-                    <span className="font-medium text-espresso dark:text-parchment text-[14px] group-hover:text-forest dark:group-hover:text-gold transition-colors duration-300 leading-snug">
-                        {item.name}
-                    </span>
-                    <span className="text-gold font-semibold text-sm shrink-0 font-[family-name:var(--font-display)]">
-                        ₹{item.price}
-                    </span>
-                </div>
+            <div className="flex items-baseline justify-between w-full">
+                <h4 className="font-[family-name:var(--font-display)] text-[1.15rem] md:text-xl font-semibold text-espresso dark:text-parchment m-0 tracking-wide">
+                    {item.name}
+                    {item.isPopular && (
+                        <span className="ml-3 inline-block px-2 py-0.5 rounded text-[10px] uppercase tracking-wider bg-gold/20 text-gold align-middle mb-1">
+                            Popular
+                        </span>
+                    )}
+                </h4>
+                <div className="flex-1 border-b-2 border-dotted border-bark/15 dark:border-parchment-10 mx-4 relative top-[-6px] opacity-70" />
+                <span className="font-[family-name:var(--font-display)] text-lg md:text-xl font-bold text-gold shrink-0">
+                    ₹{item.price}
+                </span>
             </div>
+            {item.description && (
+                <p className="text-sm md:text-[15px] text-bark/60 dark:text-parchment-60 max-w-[85%] leading-relaxed font-light">
+                    {item.description}
+                </p>
+            )}
         </motion.div>
     );
 }
@@ -354,10 +297,10 @@ function SubCategoryGroup({ sub, index }: { sub: SubCategory; index: number }) {
                 <div className="flex-1 h-px bg-gradient-to-r from-gold/30 to-transparent" />
             </div>
 
-            {/* Items grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {/* Items list — single column editorial rows */}
+            <div className="flex flex-col divide-y divide-bark/10 dark:divide-parchment-05">
                 {sub.items.map((item) => (
-                    <MenuItemCard key={`${sub.name}-${item.name}`} item={item} />
+                    <MenuItemRow key={`${sub.name}-${item.name}`} item={item} />
                 ))}
             </div>
         </motion.div>
@@ -519,27 +462,30 @@ export function Menu() {
 
                 {/* ... (The rest of your Tab Navigation and Tab Content stays exactly the same) ... */}
 
-                {/* ─── Tab Navigation ─── */}
+                {/* ─── Swipeable Tab Navigation ─── */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    className="mb-12"
+                    className="mb-12 relative w-full max-w-4xl mx-auto"
                 >
-                    <div className="flex flex-wrap justify-center gap-2 md:gap-3">
+                    <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-[#0a0a0a] to-transparent z-10 pointer-events-none md:hidden" />
+                    <div className="flex overflow-x-auto gap-3 pb-2 snap-x snap-mandatory hide-scrollbar px-2">
                         {menuTabs.map((tab) => (
-                            <button
+                            <motion.button
                                 key={tab.id}
+                                whileTap={{ scale: 0.94 }}
                                 onClick={() => setActiveTab(tab.id)}
-                                className={`menu-tab px-5 py-3 md:px-6 md:py-3.5 rounded-full text-sm md:text-[15px] font-medium flex items-center gap-2 border ${activeTab === tab.id
-                                    ? "menu-tab-active border-gold/50 bg-white/10 dark:bg-zinc-800/60"
-                                    : "border-bark/15 dark:border-parchment-10 text-bark dark:text-parchment-60 hover:text-espresso dark:hover:text-parchment bg-white/5 dark:bg-zinc-950/40"
-                                    }`}
+                                className={`snap-center shrink-0 px-6 py-3.5 rounded-full text-[15px] font-medium flex items-center gap-2 border transition-all duration-300 ${
+                                    activeTab === tab.id
+                                        ? "border-gold bg-gold/10 text-gold shadow-[0_0_15px_rgba(201,169,110,0.15)]"
+                                        : "border-bark/15 dark:border-parchment-10 text-bark/70 dark:text-parchment-60 bg-white/5 dark:bg-zinc-950/40 hover:text-parchment"
+                                }`}
                             >
-                                <span className="text-base">{tab.icon}</span>
-                                <span className="hidden sm:inline">{tab.label}</span>
-                            </button>
+                                <span className="text-lg">{tab.icon}</span>
+                                <span className="tracking-wide">{tab.label}</span>
+                            </motion.button>
                         ))}
                     </div>
                 </motion.div>
@@ -552,7 +498,7 @@ export function Menu() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -12 }}
                         transition={{ duration: 0.35, ease: "easeOut" }}
-                        className="bg-white/5 dark:bg-zinc-950/60 rounded-3xl p-6 md:p-10 border border-bark/10 dark:border-parchment-05"
+                        className="max-w-4xl mx-auto px-2"
                     >
                         <div className="flex items-center gap-3 mb-8 pb-5 border-b border-bark/10 dark:border-parchment-10">
                             <span className="text-2xl">{activeTabData.icon}</span>

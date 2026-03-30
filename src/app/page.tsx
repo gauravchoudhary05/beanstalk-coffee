@@ -33,8 +33,8 @@ export default function Home() {
             {/* 📝 LAYER 4: TEXT & BORDERS (THE MENU WINDOW) */}
             {/* Must be transparent. Slides up over the animation to reveal the cup. */}
             <div className="relative z-[4] w-full -mt-[50vh] bg-transparent pointer-events-none">
-                {/* pointer-events-auto allows you to click the buttons inside */}
-                <div className="relative pt-10 pb-20 pointer-events-auto">
+                {/* 🧹 FIX: Removed pb-20 from this line! */}
+                <div className="relative pt-10 pointer-events-auto">
                     <TheVibe />
                     <Menu />
                     <SocialProof />
