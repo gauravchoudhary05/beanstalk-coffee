@@ -4,6 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { Environment, ContactShadows } from "@react-three/drei";
 import { CoffeeCup3D } from "./CoffeeCup3D";
 import { CoffeeParticles3D } from "./CoffeeParticles3D";
+import { CoffeeSteam3D } from "./CoffeeSteam3D";
 import { useState, useEffect } from "react";
 
 export function Scene3D() {
@@ -54,6 +55,7 @@ export function Scene3D() {
                 <group scale={isMobile ? 0.65 : 1}>
                     <CoffeeCup3D />
                     <CoffeeParticles3D />
+                    <CoffeeSteam3D />
                     {!isMobile && <ContactShadows position={[0, -4.5, 0]} opacity={0.4} scale={20} blur={2} far={10} resolution={128} frames={1} />}
                 </group>
 
