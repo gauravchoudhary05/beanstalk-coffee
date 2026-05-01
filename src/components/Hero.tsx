@@ -28,7 +28,7 @@ export function Hero() {
                     className="text-gold tracking-[0.35em] uppercase text-xs md:text-sm font-medium mb-8 flex items-center justify-center gap-3"
                 >
                     <span className="w-8 h-px bg-gold/40" />
-                    Est. 2023 · Jaipur
+                    Est. 2022 · Shillong
                     <span className="w-8 h-px bg-gold/40" />
                 </motion.p>
 
@@ -37,29 +37,10 @@ export function Hero() {
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 1.2, delay: 0.15, ease: "easeOut" }}
-                    className="font-[family-name:var(--font-display)] text-6xl md:text-8xl lg:text-[10rem] font-bold text-parchment leading-[0.9] tracking-tight"
+                    className="font-[family-name:var(--font-display)] text-6xl sm:text-7xl md:text-8xl lg:text-[9rem] xl:text-[10rem] font-bold text-parchment leading-[0.9] tracking-tight whitespace-nowrap"
                 >
-                    Beanstalk
+                    Click <span className="italic font-normal text-gold">Cafe</span>
                 </motion.h1>
-
-                {/* Decorative gold divider */}
-                <motion.div
-                    initial={{ scaleX: 0, opacity: 0 }}
-                    animate={{ scaleX: 1, opacity: 1 }}
-                    transition={{ duration: 1.4, delay: 0.5, ease: "easeOut" }}
-                    className="mx-auto my-3 md:my-4 origin-center"
-                >
-                    <div className="h-px w-32 md:w-48 mx-auto bg-gradient-to-r from-transparent via-gold to-transparent" />
-                </motion.div>
-
-                <motion.span
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1.2, delay: 0.35, ease: "easeOut" }}
-                    className="font-[family-name:var(--font-display)] text-6xl md:text-8xl lg:text-[10rem] italic font-normal text-gold block leading-[0.9] tracking-tight"
-                >
-                    Coffee
-                </motion.span>
 
                 {/* Subtitle */}
                 <motion.p
@@ -68,7 +49,7 @@ export function Hero() {
                     transition={{ duration: 1, delay: 0.7, ease: "easeOut" }}
                     className="mt-8 md:mt-12 text-parchment-60 text-lg md:text-xl lg:text-2xl font-light max-w-xl mx-auto leading-relaxed"
                 >
-                    A Jaipur Hidden Gem.
+                    Shillong's Specialty Coffee Haven.
                 </motion.p>
 
                 {/* BusyMeter — real-time café vibes */}

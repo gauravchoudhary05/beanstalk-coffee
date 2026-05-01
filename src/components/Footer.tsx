@@ -17,17 +17,17 @@ export function Footer() {
                         className="md:col-span-5 pr-8"
                     >
                         <h3 className="font-[family-name:var(--font-display)] text-3xl font-bold text-parchment mb-6">
-                            Beanstalk
-                            <span className="italic font-normal text-gold"> Coffee</span>
+                            Click
+                            <span className="italic font-normal text-gold"> Cafe</span>
                         </h3>
                         <p className="text-parchment-40 text-[15px] leading-relaxed max-w-sm mb-8">
-                            A cozy, nature-inspired café in Jaipur. Come for the 100% vegetarian artisan menu, stay for the resident cats, and leave with a smile.
+                            Specialty coffee, manual brews, and the best hot chocolate in Shillong. Cozy vibes, resident cats, and a barista who truly cares.
                         </p>
                         <div className="inline-flex flex-col">
                             <span className="text-gold font-medium mb-1 flex items-center gap-2">
-                                <span>★</span> 4.5 Stars
+                                <span>★</span> 4.6 Stars
                             </span>
-                            <span className="text-parchment-20 text-xs">Based on 112 Google Reviews</span>
+                            <span className="text-parchment-20 text-xs">Based on 247 Google Reviews</span>
                         </div>
                     </motion.div>
 
@@ -43,13 +43,13 @@ export function Footer() {
                             Find Us
                         </h4>
                         <address className="not-italic text-parchment-40 text-sm leading-loose">
-                            <p>B, Gandhi Path Rd,</p>
-                            <p>Lalarpura,</p>
-                            <p>Jaipur, Rajasthan</p>
-                            <p>302021</p>
+                            <p>St. Peter’s Building, 1st Floor,</p>
+                            <p>Dhankheti,</p>
+                            <p>Shillong, Meghalaya</p>
+                            <p>793003</p>
                         </address>
                         <a
-                            href="https://maps.google.com/?q=Beanstalk+Coffee+Jaipur+Gandhi+Path"
+                            href="https://maps.google.com/?q=Click+Cafe+Dhankheti+Shillong+Meghalaya"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="group inline-flex items-center gap-2 text-gold hover:text-parchment text-sm mt-6 transition-colors duration-300"
@@ -77,12 +77,12 @@ export function Footer() {
                         </h4>
                         <div className="space-y-4 text-sm">
                             <div className="flex justify-between items-baseline border-b border-parchment/5 pb-2">
-                                <span className="text-parchment-40">Mon – Fri</span>
-                                <span className="text-parchment-80 font-medium">8:00 AM – 10:00 PM</span>
+                                <span className="text-parchment-40">Mon – Sat</span>
+                                <span className="text-parchment-80 font-medium">10:00 AM – 9:00 PM</span>
                             </div>
                             <div className="flex justify-between items-baseline border-b border-parchment/5 pb-2">
-                                <span className="text-parchment-40">Sat – Sun</span>
-                                <span className="text-parchment-80 font-medium">9:00 AM – 11:00 PM</span>
+                                <span className="text-parchment-40">Sunday</span>
+                                <span className="text-parchment-80 font-medium">11:00 AM – 9:00 PM</span>
                             </div>
                         </div>
                     </motion.div>
@@ -91,7 +91,7 @@ export function Footer() {
                 {/* Bottom Divider + Copyright */}
                 <div className="border-t border-parchment-10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
                     <p className="text-parchment-20 text-xs">
-                        © {new Date().getFullYear()} Beanstalk Coffee. All rights reserved.
+                        © {new Date().getFullYear()} Click Cafe Shillong. All rights reserved.
                     </p>
                     <div className="flex gap-6 text-parchment-20 text-xs">
                         <a href="#" className="hover:text-parchment transition-colors">Instagram</a>

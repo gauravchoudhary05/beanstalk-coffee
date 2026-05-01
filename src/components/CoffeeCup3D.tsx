@@ -7,7 +7,7 @@ import * as THREE from "three";
 import { useScroll, useTransform } from "framer-motion";
 
 /* ═══════════════════════════════════════════════════════════════
-   useBrandTexture — Generates a premium "BEANSTALK" canvas texture
+   useBrandTexture — Generates a premium "CLICK CAFE" canvas texture
 
    Uses Playfair Display (already loaded by Next.js layout) to
    render copper text with a fired-into-ceramic effect:
@@ -54,7 +54,7 @@ function useBrandTexture() {
             const fontStack = '"Playfair Display", Georgia, "Times New Roman", serif';
             const fontSize = 164;
             const letterSpacing = 18;
-            const text = "BEANSTALK";
+            const text = "CLICK CAFE";
             const chars = text.split("");
 
             ctx.font = `700 ${fontSize}px ${fontStack}`;
@@ -217,7 +217,7 @@ function createLiquidGeometry(radius: number, segments: number): THREE.BufferGeo
    Geometry:
      • Lathe-revolved cup body with proper wall thickness & rim
      • Ergonomic torus handle at natural grip angle
-     • BEANSTALK copper decal via <Decal /> projection
+     • CLICK CAFE copper decal via <Decal /> projection
      • Concave liquid coffee surface with meniscus & shimmer
 
    Animation:
@@ -379,7 +379,7 @@ export function CoffeeCup3D() {
             >
                 <primitive object={ceramicMaterial} attach="material" />
 
-                {/* ─── BEANSTALK Decal ───
+                {/* ─── CLICK CAFE Decal ───
                      Projected onto the curved lathe surface.
                      • Position: centered horizontally, slightly above
                        midline, on the BACK face (Z ≈ -1.1).

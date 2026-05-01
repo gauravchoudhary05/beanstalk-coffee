@@ -18,13 +18,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-    title: "Beanstalk Coffee — A Jaipur Hidden Gem",
+    title: "Click Cafe Shillong | Premium Coffee & Hot Chocolate",
     description:
-        "A cozy, nature-inspired café in Jaipur. 100% vegetarian menu, resident cats, and artisan coffee on Gandhi Path Road.",
-    keywords: ["Beanstalk Coffee", "Jaipur café", "vegetarian café Jaipur", "Gandhi Path coffee shop"],
+        "Specialty coffee, manual brews, and the best hot chocolate in Shillong. Cozy vibes, resident cats, and artisan food at Dhankheti, St. Peter's Building.",
+    keywords: ["Click Cafe", "Shillong café", "specialty coffee Shillong", "Dhankheti coffee shop", "hot chocolate Shillong", "manual brew coffee"],
     openGraph: {
-        title: "Beanstalk Coffee — A Jaipur Hidden Gem",
-        description: "Nature-inspired café with artisan coffee & resident cats. Gandhi Path, Jaipur.",
+        title: "Click Cafe Shillong | Premium Coffee & Hot Chocolate",
+        description: "Specialty coffee, manual brews & cozy vibes. Dhankheti, Shillong.",
         type: "website",
     },
 };

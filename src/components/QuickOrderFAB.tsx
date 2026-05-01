@@ -29,8 +29,8 @@ export function QuickOrderFAB() {
 
     const handleOrderClick = () => {
         // Simulate placing an order and storing it
-        localStorage.setItem("lastOrder", "Beanstalk Latte");
-        setLastOrder("Beanstalk Latte");
+        localStorage.setItem("lastOrder", "Click Cafe Flat White");
+        setLastOrder("Click Cafe Flat White");
         alert("Preparing your order! (Mock action)");
     };
 

@@ -24,225 +24,226 @@ interface MenuTab {
     subcategories: SubCategory[];
 }
 
-/* ─── Full Beanstalk Menu Data ─── */
+/* ─── Full Click Cafe Shillong Menu Data ─── */
 const menuTabs: MenuTab[] = [
     {
-        id: "beverages",
-        label: "Beverages & Shakes",
-        icon: "🍹",
+        id: "manual-brews",
+        label: "Manual Brews",
+        icon: "☕",
         subcategories: [
             {
-                name: "Shakes",
+                name: "Make Your Own Coffee",
+                icon: "🫖",
+                items: [
+                    { name: "Espresso Machine", price: 150, description: "Pull your own shot", isPopular: true },
+                    { name: "Moka Pot", price: 200 },
+                    { name: "V-60", price: 200, isPopular: true },
+                    { name: "Aero Press", price: 200 },
+                    { name: "French Press", price: 200 },
+                    { name: "Pour Over (Drip Kettle)", price: 200 },
+                ],
+            },
+        ],
+    },
+    {
+        id: "coffee-specialty",
+        label: "Coffee & Specialty",
+        icon: "☕",
+        subcategories: [
+            {
+                name: "Strong Coffee",
+                icon: "💪",
+                items: [
+                    { name: "Ristretto", price: 100 },
+                    { name: "Espresso", price: 100 },
+                    { name: "Doppio", price: 140 },
+                    { name: "Lungo", price: 120 },
+                ],
+            },
+            {
+                name: "Cafe Specialty",
+                icon: "✨",
+                items: [
+                    { name: "Black Coffee / Americano", price: 100 },
+                    { name: "Cappuccino", price: 120, isPopular: true },
+                    { name: "Latte", price: 120, isPopular: true },
+                    { name: "Mocha", price: 120 },
+                    { name: "Affogato", price: 150 },
+                    { name: "Shakerato", price: 150 },
+                    { name: "Macchiato", price: 120 },
+                    { name: "Flat White", price: 120, isPopular: true },
+                    { name: "Irish Coffee", price: 150 },
+                ],
+            },
+        ],
+    },
+    {
+        id: "cold-beverages",
+        label: "Cold Beverages",
+        icon: "🧊",
+        subcategories: [
+            {
+                name: "Iced Coffee",
                 icon: "🥤",
                 items: [
-                    { name: "Vanilla", price: 110 },
-                    { name: "Strawberry", price: 120 },
-                    { name: "Chocolate", price: 120 },
-                    { name: "Butterscotch", price: 130 },
-                    { name: "Oreo", price: 150 },
-                    { name: "Blackcurrant", price: 160 },
-                    { name: "Kitkat", price: 160 },
-                    { name: "Blueberry", price: 170 },
-                    { name: "Strawberry Oreo", price: 170 },
-                    { name: "Brownie", price: 180 },
-                    { name: "Peanut Butter", price: 180 },
-                    { name: "Nuttie", price: 200 },
-                    { name: "Biscoff", price: 250 },
+                    { name: "Cold Brew", price: 180, isPopular: true },
+                    { name: "Iced Americano", price: 150 },
+                    { name: "Iced Frappé", price: 160 },
+                    { name: "Iced Mocha", price: 170 },
                 ],
             },
             {
-                name: "Frappé",
-                icon: "🧊",
+                name: "Refreshers & Iced Tea",
+                icon: "🍋",
                 items: [
-                    { name: "Café Frappé", price: 100 },
-                    { name: "Vanilla", price: 120 },
-                    { name: "Chocolate", price: 130 },
-                    { name: "Hazelnut", price: 150 },
+                    { name: "Fresh Lime Soda (sweet/salty)", price: 150 },
+                    { name: "Honey Ginger Lemonade", price: 160 },
+                    { name: "Classic Strawberry Lemonade", price: 160 },
+                    { name: "Ginger Lemon Iced Tea", price: 160 },
+                    { name: "Lemon Iced Tea", price: 170 },
+                    { name: "Peach Iced Tea", price: 170 },
+                ],
+            },
+        ],
+    },
+    {
+        id: "food",
+        label: "Food",
+        icon: "🍽️",
+        subcategories: [
+            {
+                name: "Pasta",
+                icon: "🍝",
+                items: [
+                    { name: "Fettuccine White Sauce (Veg)", price: 270 },
+                    { name: "Fettuccine Red Sauce (Veg)", price: 270 },
+                    { name: "Fettuccine (Non-Veg)", price: 290 },
+                    { name: "Penne White Sauce (Veg)", price: 250 },
+                    { name: "Penne Red Sauce (Veg)", price: 250 },
+                    { name: "Penne (Non-Veg)", price: 270 },
                 ],
             },
             {
-                name: "Hot Beverages",
-                icon: "☕",
+                name: "Sandwiches",
+                icon: "🥪",
                 items: [
-                    { name: "Desi Fusion Strong", price: 60 },
-                    { name: "Americano", price: 60 },
-                    { name: "Iced Americano", price: 60 },
-                    { name: "Cappuccino", price: 90 },
+                    { name: "Veg Grilled Sandwich", price: 200 },
+                    { name: "Veg Grilled Sandwich (Cheese)", price: 220 },
+                    { name: "Cheese & Herb Sandwich", price: 230, isPopular: true },
+                    { name: "Cheese & Corn Sandwich", price: 240 },
+                    { name: "Chicken Grilled Sandwich", price: 250 },
+                    { name: "Chicken Grilled Sandwich (Cheese)", price: 260 },
+                    { name: "BBQ Sandwich", price: 270 },
+                    { name: "BBQ Sandwich (Cheese)", price: 280 },
+                ],
+            },
+            {
+                name: "Tacos & Wraps",
+                icon: "🌮",
+                items: [
+                    { name: "Tacos (Veg)", price: 240 },
+                    { name: "Tacos (Non-Veg)", price: 260 },
+                    { name: "Wraps (Veg)", price: 240 },
+                    { name: "Wraps (Non-Veg)", price: 260 },
+                ],
+            },
+            {
+                name: "Burgers",
+                icon: "🍔",
+                items: [
+                    { name: "Veg Burger", price: 220 },
+                    { name: "Cheesy Burger", price: 240 },
+                    { name: "Chicken Burger", price: 260 },
+                ],
+            },
+            {
+                name: "Belgian Waffles",
+                icon: "🧇",
+                items: [
+                    { name: "Traditional Waffle", price: 199, isPopular: true },
+                    { name: "Waffle with Chocolate & Choco Chips", price: 219 },
+                    { name: "Waffle with Cream", price: 219 },
+                    { name: "Waffle with Ice-Cream", price: 239 },
+                ],
+            },
+        ],
+    },
+    {
+        id: "hot-cold-drinks",
+        label: "Hot & Cold Drinks",
+        icon: "🍫",
+        subcategories: [
+            {
+                name: "Hot Chocolate",
+                icon: "🍫",
+                items: [
+                    { name: "Traditional Hot Chocolate", price: 129 },
+                    { name: "Marshmallow Hot Chocolate", price: 169, isPopular: true },
+                    { name: "Crispy Crunch Hot Chocolate", price: 149 },
+                    { name: "Hot Chocolate with Cream", price: 159 },
+                    { name: "Caramel Hot Chocolate", price: 149, isPopular: true },
+                    { name: "Hazelnut Hot Chocolate", price: 149 },
+                    { name: "Mint Hot Chocolate", price: 149 },
                 ],
             },
             {
                 name: "Tea",
                 icon: "🍵",
                 items: [
-                    { name: "Masala Chai", price: 30 },
-                    { name: "Adrak Chai", price: 30 },
-                    { name: "Kulhad Chai", price: 35 },
-                    { name: "Honey Lemon", price: 70 },
-                    { name: "Lemon Ice Tea", price: 90 },
+                    { name: "Black Tea", price: 30, description: "Kettle (2-3 cups): ₹80" },
+                    { name: "Green Tea", price: 40, description: "Kettle (2-3 cups): ₹90" },
+                    { name: "Masala Tea", price: 50, description: "Kettle (2-3 cups): ₹120" },
+                    { name: "Earl Grey Tea", price: 50, description: "Kettle (2-3 cups): ₹140" },
+                    { name: "Peach Tea", price: 50, description: "Kettle (2-3 cups): ₹140" },
+                    { name: "Peppermint Tea", price: 50, description: "Kettle (2-3 cups): ₹140" },
+                    { name: "Purple Tea", price: 50, description: "Kettle (2-3 cups): ₹140" },
+                    { name: "Lemon Ginger Honey Tea", price: 60, description: "Kettle (2-3 cups): ₹150" },
                 ],
             },
+            {
+                name: "Milkshakes",
+                icon: "🥛",
+                items: [
+                    { name: "Chocolate Shake", price: 169 },
+                    { name: "Strawberry Shake", price: 169 },
+                    { name: "Mango Shake", price: 169 },
+                    { name: "Orange Shake", price: 169 },
+                    { name: "Pineapple Shake", price: 169 },
+                    { name: "Mint-Oreo Shake", price: 189, isPopular: true },
+                ],
+            },
+            {
+                name: "Smoothies",
+                icon: "🥝",
+                items: [
+                    { name: "Mixed Smoothie", price: 169 },
+                    { name: "Strawberry Smoothie", price: 169 },
+                    { name: "Mango Smoothie", price: 169 },
+                    { name: "Orange Smoothie", price: 169 },
+                    { name: "Pineapple Smoothie", price: 169 },
+                ],
+            },
+        ],
+    },
+    {
+        id: "mocktails-specials",
+        label: "Mocktails & Specials",
+        icon: "🍹",
+        subcategories: [
             {
                 name: "Mocktails",
-                icon: "🍋",
+                icon: "🍹",
                 items: [
-                    { name: "Lemonade", price: 80 },
-                    { name: "Lemon Soda", price: 80 },
-                    { name: "Mint Mojito", price: 90 },
-                    { name: "Virgin Mojito", price: 100 },
-                    { name: "Watermelon Punch", price: 120 },
-                    { name: "Green Apple", price: 130 },
-                    { name: "Strawberry", price: 130 },
-                    { name: "Lichi", price: 140 },
-                    { name: "Blackcurrant", price: 140 },
-                    { name: "Blueberry", price: 150 },
-                ],
-            },
-        ],
-    },
-    {
-        id: "quick-bites",
-        label: "Quick Bites",
-        icon: "🍔",
-        subcategories: [
-            {
-                name: "Sandwiches",
-                icon: "🥪",
-                items: [
-                    { name: "Veg Grilled", price: 90 },
-                    { name: "Veg Sweet Corn", price: 110 },
-                    { name: "Cheese", price: 120 },
-                    { name: "Paneer Tadka", price: 130 },
-                    { name: "Beanstalk Special", price: 150 },
+                    { name: "Mojito", price: 159 },
+                    { name: "Blue Lagoon", price: 169 },
+                    { name: "Fruit Punch", price: 189 },
                 ],
             },
             {
-                name: "Burgers & Breads",
-                icon: "🍞",
+                name: "Click Cafe Specials",
+                icon: "⭐",
                 items: [
-                    { name: "Aloo Tikki Burger", price: 70 },
-                    { name: "Cheese Burger", price: 90 },
-                    { name: "Veg Garlic Bread", price: 100 },
-                    { name: "Paneer Cheese Burger", price: 110 },
-                    { name: "Cheesy Garlic Bread", price: 110 },
-                    { name: "Cheese Corn Garlic Bread", price: 120 },
-                    { name: "Double Decker Burger", price: 130 },
-                ],
-            },
-            {
-                name: "French Fries",
-                icon: "🍟",
-                items: [
-                    { name: "Plain", price: 70 },
-                    { name: "Salted", price: 80 },
-                    { name: "Peri Peri", price: 100 },
-                    { name: "Cheese Loaded", price: 130 },
-                ],
-            },
-            {
-                name: "Maggi",
-                icon: "🍜",
-                items: [
-                    { name: "Classic", price: 70 },
-                    { name: "Peri Peri", price: 80 },
-                    { name: "Cheese", price: 100 },
-                    { name: "Punjabi Tadka", price: 100 },
-                    { name: "Tandoori", price: 110 },
-                ],
-            },
-            {
-                name: "Subs",
-                icon: "🥖",
-                items: [
-                    { name: "Veg Delight", price: 160 },
-                    { name: "Tandoori Paneer", price: 200 },
-                ],
-            },
-            {
-                name: "Buns",
-                icon: "🧈",
-                items: [
-                    { name: "Maska Bun", price: 50 },
-                    { name: "Bread Butter", price: 60 },
-                    { name: "Bread Toast", price: 70 },
-                ],
-            },
-        ],
-    },
-    {
-        id: "mains",
-        label: "Mains & Chinese",
-        icon: "🍕",
-        subcategories: [
-            {
-                name: "Pizza",
-                icon: "🍕",
-                items: [
-                    { name: "Margherita", price: 150 },
-                    { name: "Cheese Delight", price: 170 },
-                    { name: "Sweet Corn", price: 180 },
-                    { name: "OTC", price: 200 },
-                    { name: "Paneer Tandoori", price: 250 },
-                    { name: "Mushroom", price: 300 },
-                ],
-            },
-            {
-                name: "Pasta",
-                icon: "🍝",
-                items: [
-                    { name: "Desi Fusion Macaroni", price: 180 },
-                    { name: "Arrabbiata", price: 230 },
-                    { name: "Alfredo", price: 280 },
-                    { name: "Rose Pink", price: 300 },
-                ],
-            },
-            {
-                name: "Chinese",
-                icon: "🥟",
-                items: [
-                    { name: "Spring Roll", price: 80 },
-                    { name: "Fry Momos", price: 90 },
-                    { name: "Hara Bhara Kabab", price: 100 },
-                    { name: "Potato Shots", price: 100 },
-                    { name: "Cheese Corn Nuggets", price: 120 },
-                    { name: "Cheese Momos", price: 120 },
-                    { name: "Crunchy Momos", price: 120 },
-                    { name: "Hakka Noodles", price: 130 },
-                    { name: "Gravy Momos", price: 130 },
-                    { name: "Burnt Garlic Noodles", price: 150 },
-                    { name: "Paneer Roll", price: 150 },
-                    { name: "Chowmein", price: 150 },
-                    { name: "Chilli Potato", price: 180 },
-                    { name: "Special Gravy Momos", price: 180 },
-                    { name: "Honey Chilli Potato", price: 220 },
-                ],
-            },
-        ],
-    },
-    {
-        id: "health-desserts",
-        label: "Health & Desserts",
-        icon: "🍨",
-        subcategories: [
-            {
-                name: "Diet",
-                icon: "🥗",
-                items: [
-                    { name: "Diet Paneer", price: 80 },
-                    { name: "Banana Shake", price: 90 },
-                    { name: "Peanut Butter with Bread", price: 130 },
-                ],
-            },
-            {
-                name: "Desserts",
-                icon: "🍦",
-                items: [
-                    { name: "Vanilla Scoop", price: 60 },
-                    { name: "Chocolate", price: 70 },
-                    { name: "Strawberry", price: 70 },
-                    { name: "Butterscotch", price: 70 },
-                    { name: "American Nuts", price: 80 },
-                    { name: "Brownie Sizzler", price: 100 },
-                    { name: "Brownie with Icecream", price: 130 },
+                    { name: "The Artic Sun", price: 199, isPopular: true, description: "Our signature creation" },
                 ],
             },
         ],
@@ -360,7 +361,7 @@ function useCupScreenPosition() {
 
 /* ─── Main Menu Component ─── */
 export function Menu() {
-    const [activeTab, setActiveTab] = useState("beverages");
+    const [activeTab, setActiveTab] = useState("manual-brews");
     const activeTabData = menuTabs.find((t) => t.id === activeTab)!;
 
     // Overlay tracking for the Gold Text Effect
@@ -424,10 +425,10 @@ export function Menu() {
                     <div className="relative mt-6" style={{ isolation: "isolate" }}>
                         {/* Layer 1 — Base WHITE text */}
                         <h2 className="font-[family-name:var(--font-display)] text-4xl md:text-6xl lg:text-7xl font-bold text-white leading-[1.05] w-full text-center">
-                            100% Vegetarian.
+                            Brew. Sip.
                             <br />
                             <span className="italic font-normal text-gold">
-                                100% Indulgent.
+                                Savor.
                             </span>
                         </h2>
 
@@ -442,21 +443,21 @@ export function Menu() {
                                 willChange: "clip-path",
                             }}
                         >
-                            100% Vegetarian.
+                            Brew. Sip.
                             <br />
                             <span className="italic font-normal" style={{ color: "transparent" }}>
-                                100% Indulgent.
+                                Savor.
                             </span>
                         </h2>
                     </div>
 
                     <p className="text-bark/70 dark:text-parchment-60 mt-6 text-lg max-w-xl mx-auto leading-relaxed">
-                        Every dish and drink crafted with fresh, locally sourced ingredients. No compromises.
+                        Specialty coffee, manual brews, and artisan food. Every cup crafted with care.
                     </p>
 
                     <div className="mt-6 inline-flex items-center gap-2 bg-forest/10 dark:bg-forest/20 text-forest dark:text-sage text-sm font-medium px-5 py-2.5 rounded-full border border-forest/20 dark:border-sage/20 backdrop-blur-none">
-                        <span>🌿</span>
-                        <span>100% Vegetarian Promise</span>
+                        <span>☕</span>
+                        <span>Add-on: Ice Cream / Whipped Cream / Hazelnut / Caramel — ₹40 each</span>
                     </div>
                 </motion.div>
 

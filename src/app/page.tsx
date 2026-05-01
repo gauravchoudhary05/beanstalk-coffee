@@ -4,6 +4,7 @@ import { Menu } from "@/components/Menu";
 import { SocialProof } from "@/components/SocialProof";
 import { Footer } from "@/components/Footer";
 import { QuickOrderFAB } from "@/components/QuickOrderFAB";
+import { Loader } from "@/components/Loader";
 
 import JarSequence from "@/components/JarSequence";
 import SceneWrapper from "@/components/SceneWrapper";
@@ -11,6 +12,9 @@ import SceneWrapper from "@/components/SceneWrapper";
 export default function Home() {
     return (
         <main className="relative min-h-screen overflow-clip">
+            
+            {/* ⏳ LAYER 0: THE INITIAL LOADER */}
+            <Loader />
 
             {/* 🟫 LAYER 1: BASE BACKGROUND */}
             {/* The absolute bottom layer of the website. */}

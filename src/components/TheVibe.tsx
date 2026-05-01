@@ -64,22 +64,22 @@ function useCupScreenPosition() {
 const features = [
     {
         number: "01",
-        title: "Nature, Everywhere",
-        description: "Step through our doors into a living garden. Every corner is adorned with lush greenery, natural wood, and earthy textures that transport you miles away from the city.",
+        title: "Brew It Yourself",
+        description: "Choose your beans, pick your method — V-60, Aero Press, French Press, Moka Pot, or Pour Over — and craft your own cup at the bar. Coffee, your way.",
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sage">
-                <path d="M12 22V8" />
-                <path d="M5 12H2a10 10 0 0 0 20 0h-3" />
-                <path d="M8 2c2 2 2 6 0 8" />
-                <path d="M16 2c-2 2-2 6 0 8" />
-                <path d="M12 2c1.5 1.5 1.5 5 0 6.5" />
+                <path d="M17 8h1a4 4 0 1 1 0 8h-1" />
+                <path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4Z" />
+                <line x1="6" x2="6" y1="2" y2="4" />
+                <line x1="10" x2="10" y1="2" y2="4" />
+                <line x1="14" x2="14" y1="2" y2="4" />
             </svg>
         ),
     },
     {
         number: "02",
         title: "The Resident Cats",
-        description: "Our furry companions roam freely through the café, curling up on sunlit benches and greeting guests with gentle purrs. They're the soul of Beanstalk.",
+        description: "Meet Cattechino and her kittens — the true stars of Click Cafe. They roam freely, curl up beside you, and turn every visit into a warm, purring memory.",
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sage">
                 <path d="M12 5c.67 0 1.34.09 2 .26 1.78-2 5.03-2.75 6.5-1.28 1.47 1.47.72 4.72-1.28 6.5.17.66.26 1.33.26 2H22l-4 4-4-4h-4L6 16.48 2 12.48h2.52c0-.67.09-1.34.26-2C2.78 8.7 2.03 5.45 3.5 3.98 4.97 2.51 8.22 3.26 10 5.26c.66-.17 1.33-.26 2-.26z" />
@@ -91,13 +91,14 @@ const features = [
     },
     {
         number: "03",
-        title: "Crafted Intentionally",
-        description: "Every detail — from the hand-thrown ceramics to the curated playlist — is chosen to create a space where you can breathe, think, and truly be present.",
+        title: "Books & Cozy Vibes",
+        description: "Dim-lit corners, shelves lined with books, and the aroma of freshly brewed coffee. Click Cafe is Shillong's perfect spot for solo mornings and long conversations.",
         icon: (
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-sage">
-                <path d="M12 2L2 7l10 5 10-5-10-5z" />
-                <path d="M2 17l10 5 10-5" />
-                <path d="M2 12l10 5 10-5" />
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                <line x1="8" x2="16" y1="7" y2="7" />
+                <line x1="8" x2="14" y1="11" y2="11" />
             </svg>
         ),
     },

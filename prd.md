@@ -1,7 +1,7 @@
-# Beanstalk Coffee — PRD v3
+# Click Cafe Shillong — PRD v1
 
 ## Purpose
-An **Awwwards-grade** single-page landing site for Beanstalk Coffee — a nature-inspired, vegetarian café on Gandhi Path Road, Jaipur. The experience must rival Apple product pages and luxury boutique commercials.
+An **Awwwards-grade** single-page landing site for Click Cafe Shillong — a specialty coffee café at Dhankheti, St. Peter's Building, Shillong, Meghalaya. The experience must rival Apple product pages and luxury boutique commercials.
 
 ## Core Design Philosophy
 - **True WebGL 3D scroll** — Replaces standard DOM with a fixed React Three Fiber `<Canvas>` rendering a 3D coffee cup and physics.
@@ -13,31 +13,33 @@ An **Awwwards-grade** single-page landing site for Beanstalk Coffee — a nature
 ## Sections
 
 ### Hero (HTML Layer)
-- Massive typographic entrance: "Beanstalk" (Playfair Display, bold) + italic "Coffee" in gold
-- Subline: "A Jaipur Hidden Gem."
+- Massive typographic entrance: "Click" (Playfair Display, bold) + italic "Cafe" in gold
+- Subline: "Shillong's Specialty Coffee Haven."
 - **BusyMeter widget**: Translucent badge showing current café capacity
 - Scroll indicator
 
 ### The Vibe (HTML Layer)
-- Nature-friendly atmosphere, living greenery, earthy interiors, resident cats
+- Specialty coffee culture, manual brews, cozy dim-lit atmosphere
 - Glassmorphism overlays on text blocks to reveal the 3D canvas beneath
-- Features: "Nature, Everywhere" / "The Resident Cats" / "Crafted Intentionally"
+- Features: "Brew It Yourself" / "The Resident Cats" / "Books & Cozy Vibes"
 
 ### Menu (HTML Layer)
-- 100% Vegetarian promise
+- Specialty coffee & both veg/non-veg food
 - CSS Grid card layout with 3D tilt on hover (Framer Motion rotateX/Y)
 - Price tags in gold
+- 6 tabs: Manual Brews, Coffee & Specialty, Cold Beverages, Food, Hot & Cold Drinks, Mocktails & Specials
 
 ### Social Proof (HTML Layer)
-- 4.5-star rating badge (112 reviews) — glassmorphism card
+- 4.6-star rating badge (247 reviews) — glassmorphism card
 - Testimonial cards with staggered scroll-reveal
 
 ### Footer (HTML Layer)
-- Dark minimalist layout, address, and hours
+- Dark minimalist layout, Shillong address, and hours
+- St. Peter's Building, 1st Floor, Dhankheti, Shillong, Meghalaya 793003
 
 ## The True 3D WebGL Engine (Canvas)
 - **`Scene3D.tsx`**: A full-screen `<Canvas>` positioned fixed at z-index 0 to reside beneath all HTML. Soft directional lighting and environment maps ensure the cup looks ceramic/photorealistic.
-- **Procedural Model (`CoffeeCup3D.tsx`)**: Utilizes Three.js cylinder and torus geometries to construct a highly detailed placeholder model. Features two materials: a shiny clearcoat ceramic white and a dark glossy espresso liquid.
+- **Procedural Model (`CoffeeCup3D.tsx`)**: Utilizes Three.js cylinder and torus geometries to construct a highly detailed placeholder model. Features two materials: a shiny clearcoat ceramic white and a dark glossy espresso liquid. Branded with "CLICK CAFE" copper decal.
 - **Spatial Scroll Tracking**: Driven by framer-motion-3d or `useScroll`. The cup's world `[x,y,z]` position updates deterministically based on scroll progress.
 - **Environment Physics (`CoffeeParticles3D.tsx`)**: Replaces the HTML emojis with actual 3D geometries (mini brown spheres) that scatter as the cup moves through them.
 
@@ -53,3 +55,12 @@ An **Awwwards-grade** single-page landing site for Beanstalk Coffee — a nature
 - Shows "Order Again: [item name]" if returning user
 - Falls back to "Start your order →" for new users
 - Fades in after 2s delay
+
+## Cafe Key Details
+- **Rating**: 4.6 (247 Google Reviews)
+- **Price Range**: ₹200–400
+- **Highlights**: Great coffee, Great dessert, Great tea selection
+- **Popular for**: Breakfast, Solo dining, Working on laptop
+- **Atmosphere**: Casual, Cozy, Romantic, Trendy
+- **Crowd**: Groups, Tourists, University students
+- **USP**: Manual brew methods (try it yourself), resident cats (Cattechino & kittens), specialty coffee, artisan hot chocolate, book corner

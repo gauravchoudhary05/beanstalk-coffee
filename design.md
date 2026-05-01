@@ -1,7 +1,7 @@
-# Design System: Beanstalk Coffee v4
+# Design System: Click Cafe Shillong v1
 
 ## 1. Visual Theme & Atmosphere
-**Nature-Boutique with Frosted Luxury.** The aesthetic is dense and moody — dark espresso grounds contrasted by jewel-toned forest greens and warm parchment cream. Glassmorphism surfaces float above the darkness like morning mist over coffee. Every surface breathes: grain overlays on deep backgrounds, soft glows on golden accents, and blur-driven depth on text overlays.
+**Cozy Specialty Coffee with Frosted Luxury.** The aesthetic is warm and intimate — dark espresso grounds contrasted by mellow amber and warm parchment cream. Glassmorphism surfaces float above the darkness like mountain mist over coffee. Every surface breathes: grain overlays on deep backgrounds, soft glows on golden accents, and blur-driven depth on text overlays.
 
 **Dark mode** uses deep charcoal (#1C1C1E) and zinc (#27272A) with amber accents (#D4A843) for a sleek, premium evening experience.
 
@@ -12,7 +12,7 @@
 | `espresso`    | `#2C1B18`   | Primary hero/section background               |
 | `forest`      | `#1E3D33`   | Accent color, CTAs, TheVibe section bg        |
 | `parchment`   | `#F9F4EE`   | Light text, card backgrounds                  |
-| `gold`        | `#C9A96E`   | Stars, highlights, "Coffee" italic, prices    |
+| `gold`        | `#C9A96E`   | Stars, highlights, "Cafe" italic, prices      |
 | `bark`        | `#5C3D2E`   | Secondary text on light sections              |
 | `sage`        | `#7BA68C`   | Subtle green accents, section labels          |
 | `smoke`       | `#1A1210`   | Footer — deepest background                   |
@@ -56,11 +56,23 @@
 - **Divider grow**: Width animation from 0→100% for gold hero divider
 - **Scroll indicator**: Mouse icon with bouncing dot + chevron
 
-## 7. Menu Structure (4 Tabs, 14 Subcategories, 108 Items)
-1. **Beverages & Shakes** — Shakes (13), Frappé (4), Hot Beverages (4), Tea (5), Mocktails (10)
-2. **Quick Bites** — Sandwiches (5), Burgers & Breads (7), French Fries (4), Maggi (5), Subs (2), Buns (3)
-3. **Mains & Chinese** — Pizza (6), Pasta (4), Chinese (15)
-4. **Health & Desserts** — Diet (3), Desserts (7)
+## 7. Menu Structure (6 Tabs)
+1. **Manual Brews** — Make Your Own Coffee (Espresso Machine, Moka Pot, V-60, Aero Press, French Press, Pour Over)
+2. **Coffee & Specialty** — Strong Coffee (Ristretto, Espresso, Doppio, Lungo) + Cafe Specialty (Americano, Cappuccino, Latte, Mocha, Affogato, Shakerato, Macchiato, Flat White, Irish Coffee)
+3. **Cold Beverages** — Iced Coffee (Cold Brew, Iced Americano, Iced Frappé, Iced Mocha) + Refreshers & Iced Tea
+4. **Food** — Pasta (Fettuccine, Penne), Sandwiches (Veg & Non-Veg), Tacos & Wraps, Burgers, Belgian Waffles
+5. **Hot & Cold Drinks** — Hot Chocolate (7 variants), Tea (8 types with kettle option), Milkshakes (6), Smoothies (5)
+6. **Mocktails & Specials** — Mocktails (Mojito, Blue Lagoon, Fruit Punch) + Click Cafe Specials (The Artic Sun)
 
-## 8. Design System Notes for Stitch Generation
-Generate screens using this palette: Deep espresso brown (#2C1B18) hero backgrounds, Forest green (#1E3D33) accent sections, Cream (#FDF8F0) content wrappers. Typography uses Playfair Display serif for headings and Inter sans-serif for body. Cards use frosted glass effects (`.glass-card` utility). Gold (#C9A96E) is used for ratings, prices, tab highlights, and italicised heading accents. Menu uses pill tabs with animated transitions. Dark mode uses Charcoal (#1C1C1E) body with Zinc (#27272A) surfaces and Amber (#D4A843) accents. The atmosphere is "cozy luxury boutique" — think premium coffee bar meets Japanese garden.
+## 8. Cafe Details
+- **Name**: Click Cafe Shillong
+- **Rating**: 4.6 (247 Google Reviews)
+- **Price Range**: ₹200–400
+- **Location**: St. Peter's Building, 1st Floor, Dhankheti, Shillong, Meghalaya 793003
+- **Hours**: Open till 9 PM
+- **USP**: Specialty coffee, manual brew methods (try it yourself), resident cats (Cattechino & kittens), best hot chocolate in Shillong, cozy book corner, dim-lit ambience
+- **Services**: Dine-in, Takeaway, Delivery
+- **Atmosphere**: Casual, Cozy, Romantic, Trendy
+
+## 9. Design System Notes for Stitch Generation
+Generate screens using this palette: Deep espresso brown (#2C1B18) hero backgrounds, Forest green (#1E3D33) accent sections, Cream (#FDF8F0) content wrappers. Typography uses Playfair Display serif for headings and Inter sans-serif for body. Cards use frosted glass effects (`.glass-card` utility). Gold (#C9A96E) is used for ratings, prices, tab highlights, and italicised heading accents. Menu uses pill tabs with animated transitions. Dark mode uses Charcoal (#1C1C1E) body with Zinc (#27272A) surfaces and Amber (#D4A843) accents. The atmosphere is "cozy specialty coffee bar" — think manual brew artisan café meets mountain town hideaway with resident cats.

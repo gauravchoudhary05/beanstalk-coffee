@@ -21,12 +21,12 @@ export function SocialProof() {
                         whileTap={{ scale: 0.98 }}
                         className="col-span-1 bg-white/5 dark:bg-zinc-900/40 backdrop-blur-md border border-bark/10 dark:border-parchment-10 rounded-3xl p-8 flex flex-col justify-center items-center text-center cursor-pointer transition-colors hover:bg-white/10"
                     >
-                        <h3 className="font-[family-name:var(--font-display)] text-7xl font-bold text-white mb-2 leading-none">4.5</h3>
+                        <h3 className="font-[family-name:var(--font-display)] text-7xl font-bold text-white mb-2 leading-none">4.6</h3>
                         <div className="flex gap-1 text-gold mb-4 text-2xl">
-                            <span>★</span><span>★</span><span>★</span><span>★</span><span className="opacity-40">★</span>
+                            <span>★</span><span>★</span><span>★</span><span>★</span><span className="opacity-60">★</span>
                         </div>
                         <p className="text-xs text-white/50 uppercase tracking-[0.2em] font-medium">
-                            112 Verified Reviews
+                            247 Verified Reviews
                         </p>
                     </motion.div>
 
@@ -42,7 +42,7 @@ export function SocialProof() {
                         </span>
                         
                         <p className="text-xl md:text-2xl text-white/90 leading-relaxed font-light mb-8 relative z-10 max-w-lg">
-                            &ldquo;A cozy, nature-inspired café in Jaipur. Come for the 100% vegetarian artisan menu, stay for the resident cats, and leave with a smile.&rdquo;
+                            &ldquo;Click Café is truly a haven for real coffee lovers. The vibe is unmatched — full of energy, warmth, and that cozy buzz only a great café can give.&rdquo;
                         </p>
                         
                         <div className="flex items-center gap-4 relative z-10 mt-auto">
